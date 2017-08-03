@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+    <title>Module</title>
+</head>
+
+<body ng-app="myApp">
+    <!--$this inherit -->
+    <div ng-controller="parentController as parent">
+        <h1>{{parent.name}} </h1>
+        <input type="text" ng-model="parent.name">
+    </div>
+    <div ng-controller="childrenController as children">
+        <h1>{{children.name}} </h1>
+        <input type="text" ng-model="children.name">
+    </div>
+
+    <!--$scope inherit -->
+    <span ng-controller="parentController2">
+        <h1>{{name}} </h1>
+        <input type="text" ng-model="name">
+    </span>
+    <span ng-controller="childrenController2">
+        <h1>{{name}} </h1>
+        <input type="text" ng-model="name">
+    </span>
+
+    <script>
+        (function () {
+
+            /*
+            /* Controller繼承
+            /* this parent / children 不會互相影響
+            */
+
+
+            //this
+            var thism = angular.module('thism', []);
+            //controller parent
+            thism.controller('parentController', function () {
+                this.name = "parentController";
+            });
+
+            //controller children
+            thism.controller('childrenController', function () {
+                this.name = "";
+            });
+
+        })();
+    </script>
+
+
+</body>
+
+</html>

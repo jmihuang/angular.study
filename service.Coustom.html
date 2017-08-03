@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+    <title>Service</title>
+</head>
+
+<body>
+
+    <script>
+        /*
+        /* 共用功能抽離做成Service,再輸入使用時注入使用，也可以將注入功能抽換
+        */
+
+        (function () {
+            //To create your own service, connect your service to the module
+            var app = angular.module('myApp', []);
+            app.service("$toFix", function () {
+                this.toFn = function (x) {
+                    return x.toFixed(0);
+                }
+            });
+            // You can use the filter when displaying values from an object, or an array
+            app.filter("fixTo", ['$toFix', function ($toFix) {
+                return function (x) {
+                    return $toFix.toFn(x);
+                }
+            }]);
+            app.controller('toCtrl', function ($scope, $toFix) {
+                $scope.num = 1.562;
+                $scope.count = [2.5668, 3.525, 41.36];
+                $scope.toNum = $toFix.toFn($scope.num);
+            });
+
+        })();
+
+    </script>
+
+    <div ng-app="myApp" ng-controller="toCtrl">
+        <span>{{toNum}}</span>
+        <ul ng-repeat="i in count">
+            {{i|fixTo}}
+        </ul>
+    </div>
+
+
+
+</body>
+
+</html>

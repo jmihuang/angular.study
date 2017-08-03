@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+    <title>Module</title>
+</head>
+
+<body ng-app="myApp">
+
+    <div ng-controller="ctrl1">
+        <h1>{{data}} </h1>
+        <input type="text" ng-model="data">
+        <pre>{{data | json}}</pre>
+    </div>
+
+    <div ng-controller="ctrl2">
+        <h1>{{data}} </h1>
+        <pre>{{data | json}}</pre>
+    </div>
+    <script>
+        (function () {
+            /*
+            /* Controller $rootScope
+            /*
+            */
+            var rootm = angular.module('myApp', []);
+
+            rootm.controller('ctrl1', ['$rootScope', function ($rootScope) {
+                $rootScope.data = 'parent1';
+            }]);
+
+            rootm.controller('ctrl2', ['$rootScope', function ($rootScope) {
+                $rootScope.data = 'parent2';
+            }]);
+
+
+        })();
+    </script>
+
+
+</body>
+
+</html>

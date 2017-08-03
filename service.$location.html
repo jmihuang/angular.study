@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+    <title>Service</title>
+</head>
+
+<body>
+
+    <script>
+        /*
+        /* 共用功能抽離做成Service,再輸入使用時注入使用，也可以將注入功能抽換
+        /* $location
+        /* 
+        /* 
+        /* 
+        */
+
+        (function () {
+            var app = angular.module('myApp', []);
+            app.controller('locCtrl', function ($scope, $location) {
+                $scope.myUrl = $location.absUrl();;
+            });
+
+        })();
+    </script>
+    <div ng-app="myApp" ng-controller="locCtrl">
+        {{myUrl}}
+    </div>
+
+</body>
+
+</html>

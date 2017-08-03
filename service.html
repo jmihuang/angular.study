@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+    <title>Service</title>
+</head>
+
+<body>
+
+    <script>
+        /*
+        /*常使用 Controller
+        /*共用功能抽離做成Service,再輸入使用時注入使用，也可以將注入功能抽換
+        /*use the service in any controller, directive, filter, or even inside other services.
+        */
+
+        (function () {
+            //新增'myApp' module
+            var app = angular.module('myApp', []);
+            //新增'WorldService' service
+            app.service('WorldService', function () {
+                WorldService.name = "World";
+                WorldService.myFunc = function (x) {
+                    return x.toFixed(2);
+                }
+            });
+            //新增'FService' service
+            app.service('FService', function () {
+                this.name = "FService";
+                this.myFunc = function (x) {
+                    return x.toFixed(1);
+                }
+            });
+            //可以抽換service
+            app.controller('MainController', function ($scope, FService) {
+                $scope.name = FService.name;
+                $scope.num = FService.myFunc(2.555);
+            });
+        })();
+    </script>
+    <div ng-app="myApp" ng-controller="MainController">
+        {{num}}
+        <input type="text" ng-model="num" value="{{num}}">
+    </div>
+
+</body>
+
+</html>

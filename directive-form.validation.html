@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+    <title>Directive</title>
+</head>
+
+<style>
+    /*input.ng-invalid {
+        border: solid 1px red;
+    }
+
+    input.ng-valid {
+        background-color: green
+    }*/
+</style>
+
+
+<body ng-app="myApp">
+
+    <script>
+        /*
+        /*Directive
+        */
+
+        (function () {
+
+            /*
+            * validation
+            * form name = "form1"
+            * input name = "account" =>  form1.account.$error.required
+            */
+            var app = angular.module("myApp", []);
+
+            app.controller("formCtrl", function () {
+                this.accountdb = '';
+                this.passworddb = '';
+                this.emaildb = '';
+                this.formfb = [];
+                this.submit = function () {
+                    this.formfb.push({
+                        accountdb: this.accountdb,
+                        passworddb: this.passworddb,
+                        emaildb: this.emaildb
+                    });
+                    console.log(this.formfb);
+
+                }
+
+            });
+
+
+
+        })();
+    </script>
+
+    <div ng-controller="formCtrl as self">
+        <form name="form1" ng-submit="self.submit()">
+            <span>帳號:</span>
+            <!--$touched The field has been touched yet-->
+            <span style="color:red" ng-show="form1.account.$touched && form1.account.$invalid">The name is required.</span>
+            <input type="text" name="account" ng-model="self.accountdb" ng-minlength="3" required>
+            <span>密碼:</span>
+            <input type="text" name="password" ng-model="self.passworddb" ng-minlength="3" ng-maxlength="6" required>
+            <span>信箱:</span>
+            <input type="text" name="email" ng-model="self.emaildb" required> unt
+            <!--$valid檢視是否錯誤-->
+            <p style="color:red" ng-if="form1.account.$invalid">accountd is required minlength 3
+                <p>
+                    <p>account:{{form1.account.$invalid}}</p>
+                    <p>pwd:{{form1.password.$invalid}}</p>
+                    <p>email:{{form1.email.$invalid}}</p>
+                    {{accountdb}}
+                    <button type="submit" ng-disabled="form1.$invalid">Submit</button>
+
+        </form>
+    </div>
+</body>
+
+</html>

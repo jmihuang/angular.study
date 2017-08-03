@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+    <title>Service</title>
+</head>
+
+<body>
+
+    <script>
+        /*
+        /* 共用功能抽離做成Service,再輸入使用時注入使用，也可以將注入功能抽換
+        /* $http 
+        /* method (post/get)
+        /* url
+        /* data
+        */
+
+        (function () {
+            var app = angular.module('myApp', []);
+            app.controller('apiCtrl', ['$scope', '$http', function ($scope, $http) {
+                $scope.name = 'W3C';
+                $scope.url = 'http://jsonplaceholder.typicode.com/users';
+                $http({
+                    //請求成功
+                    method: 'GET',
+                    url: $scope.url
+                }).then(function (response) {
+                    $scope.datas = response.data;
+                }, function (response) {
+                    //請求失敗
+                    console.log('fail');
+                });
+            }]);
+
+        })();
+    </script>
+    <div ng-app="myApp" ng-controller="apiCtrl">
+        {{name}}
+        <ul ng-repeat="data in datas">
+            <li><span>{{data.company.name}}</span>--<span>{{data.email}}</span></li>
+        </ul>
+    </div>
+
+</body>
+
+</html>

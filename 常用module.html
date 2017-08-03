@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+    <title>Service</title>
+</head>
+
+<body ng-app="myApp">
+
+    <script>
+        /*
+        /*常見Module架構
+        /*載入angular js
+        /*載入controller.js  directive.js filter.js service.js
+        */
+
+        (function () {
+
+            //大方向進行功能分類 Controller Directive Filter Service ....
+            var controller = angular.module('myController', []);
+            var directive = angular.module('myDirective', []);
+            var filter = angular.module('myFilter', []);
+
+            //大方向進行功能分類 Controller Directive Filter Service ....
+            var app = angular.module('myApp', ['controller', 'directive', 'filter']);
+
+            //controller.js
+            //var app = angular.module('myController', []);
+            //.....
+
+        })();
+    </script>
+    <div ng-controller="bookController">
+        {{name}}
+    </div>
+    <div ng-controller="penController">
+        {{name}}
+    </div>
+
+
+</body>
+
+</html>

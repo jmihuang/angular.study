@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+    <title>Directive</title>
+</head>
+
+
+<body ng-app="myApp">
+
+    <script>
+        /*
+        /*Directive ng-options
+        */
+
+        (function () {
+
+            /*
+            * form
+            */
+            var app = angular.module("myApp", []);
+
+            app.controller("formCtrl", function () {
+                var vm = this;
+                vm.op = ['a', 'b', 'c'];
+                vm.package = [{
+                    type: 'a',
+                    id: 1,
+                    label: '1.aLabel',
+                    price: 20,
+                    subItem: { name: 'aSubItem' }
+                }, {
+                    type: 'b',
+                    id: 5,
+                    label: '5.nty6',
+                    price: 220,
+                    subItem: { name: 'bSubItem' }
+                }, {
+                    type: 'a',
+                    id: 3,
+                    label: '3.nee',
+                    price: 40,
+                    subItem: { name: 'aSubItem' }
+                }, {
+                    type: 'd',
+                    id: 4,
+                    label: '4.bswe',
+                    price: 50,
+                    subItem: { name: 'bSubItem' }
+                }, {
+                    type: 'b',
+                    id: 2,
+                    label: '2.aLabel',
+                    price: 50,
+                    subItem: { name: 'aSubItem' }
+                }, {
+                    type: 'd',
+                    id: 6,
+                    label: '6.wx',
+                    price: 50,
+                    subItem: { name: 'bSubItem' }
+                }];
+
+                vm.items = [];
+                vm.qty = 0;
+                vm.price = 0;
+                vm.selected = vm.package[2];//初始預設值
+
+                vm.submit = function () {
+
+                    vm.items.push({
+                        label: vm.selected,
+                        qty: vm.qty,
+                        price: vm.price,
+                        total: vm.subtotal()
+                    });
+                    console.log(vm.items);
+                }
+                vm.subtotal = function () {
+                    return vm.qty * vm.price;
+                }
+                vm.add = function () {
+                    return vm.qty++;
+                }
+                vm.minus = function () {
+                    return vm.qty--;
+                }
+
+            });
+
+
+
+        })();
+    </script>
+
+    <!--
+     Document:https://docs.angularjs.org/api/ng/directive/ngOptions
+     refenrence:https://ryan10328.blogspot.tw/2016/04/angularjs-directive-day6.html
+    
+    -->
+    <div ng-controller="formCtrl as self">
+        <form ng-submit="self.submit()">
+            <!--2.select as label for value in array //select 為key取出其值-->
+            <select name="" id="" ng-model="self.selected" ng-options="item.label as item.label for item in self.package"></select>
+            <label>數量</label><input type="text" ng-model="self.qty">
+            <label>價錢</label><input type="text" ng-model="self.price">
+            <label>總價</label>{{self.subtotal()}}
+            <pre>{{ self.items | json}}</pre>
+            <button type="submit">Submit</button>
+
+        </form>
+    </div>
+</body>
+
+</html>

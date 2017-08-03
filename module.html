@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+    <title>Service</title>
+</head>
+
+<body ng-app="myApp">
+
+    <script>
+        /*
+        /*Module
+        /*自訂模組 可加入Controller Service Filter等功能
+        /*可以組合其他模組
+        /*use the service in any controller, directive, filter, or even inside other services.
+        */
+
+        (function () {
+
+            //建立book module
+            var book = angular.module('book', []);
+            book.controller('bookController', ['$scope', function ($scope) {
+                $scope.name = "心齋橋一日";
+            }]);
+
+            //建立pen module
+            var pen = angular.module('pen', []);
+            pen.controller('penController', ['$scope', function ($scope) {
+                $scope.name = "三菱自動筆";
+            }]);
+
+            //建立模組myApp,將bookController,penController組合上去
+            var app = angular.module('myApp', ['book', 'pen']);
+
+
+        })();
+    </script>
+    <div ng-controller="bookController">
+        {{name}}
+    </div>
+    <div ng-controller="penController">
+        {{name}}
+    </div>
+
+
+</body>
+
+</html>

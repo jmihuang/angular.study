@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+    <title>Directive</title>
+</head>
+
+<style>
+    .red {
+        color: red;
+    }
+
+    .blue {
+        color: blue;
+    }
+
+    .box {
+        width: 600px;
+        height: 300px;
+        border: black 1px solid;
+    }
+</style>
+
+<body ng-app="myApp">
+
+    <script>
+        /*
+        /*Directive
+        */
+
+        (function () {
+
+            /*
+            /* ng-app directive initializes an AngularJS application.
+            /* ng-init directive initializes application data.
+            /* ng-model directive binds the value of HTML controls (input, select, textarea) to application data.
+            */
+
+            var app = angular.module('myApp', []);
+
+            /*
+            * create a new directives
+            * not support 1.2
+            */
+            app.directive("w3TestDirective", function () {
+                return {
+                    template: "<h1>Made by a directive!</h1>"
+                };
+            });
+
+
+            /*
+            * ng-repeat
+            */
+            app.controller("fruit", ['$scope', function ($scope) {
+                $scope.array = [{
+                    'name': 'pineapple',
+                    'price': '25'
+                },
+                {
+                    'name': 'kiwi',
+                    'price': '125'
+                },
+                {
+                    'name': 'watermelon',
+                    'price': '60'
+                }];
+            }]);
+
+            /*
+            * ng-class
+            */
+
+            app.controller("color", ['$scope', function ($scope) {
+                $scope.isTrue = true;
+                $scope.isFalse = false;
+            }]);
+
+            /*
+            * ng-show / ng-show
+            */
+
+            app.controller("showHide", ['$scope', function ($scope) {
+                $scope.isTrue = true;
+                $scope.isFalse = false;
+            }]);
+
+            /*
+            * ng-if
+            */
+
+            app.controller("ifCtrl", ['$scope', function ($scope) {
+                $scope.display = false;
+            }]);
+
+            /*
+            * event 事件
+            */
+
+            app.controller("eventCtrl", ['$scope', function ($scope) {
+                var vm = $scope;
+                vm.qty = 2;
+                vm.price = 100;
+                vm.mouseover = false;
+                vm.subtotal = function () {
+                    return vm.qty * vm.price;
+                }
+                vm.add = function () {
+                    return vm.qty++;
+                }
+                vm.minus = function () {
+                    return vm.qty--;
+                }
+
+                vm.items = [{
+                    type: 'a',
+                    id: 1,
+                    label: 'aLabel',
+                    subItem: { name: 'aSubItem' }
+                }, {
+                    type: 'b',
+                    id: 2,
+                    label: 'nty6',
+                    subItem: { name: 'bSubItem' }
+                }, {
+                    type: 'a',
+                    id: 3,
+                    label: 'nee',
+                    subItem: { name: 'aSubItem' }
+                }];
+            }]);
+
+        })();
+    </script>
+
+    <div ng-init="firstName='John';gender='M'">
+        <h2>Name:{{firstName}}</h2>
+        <h2>Gender:{{gender}}</h2>
+    </div>
+
+    <div ng-controller="fruit">
+        <ul ng-repeat="i in array">
+            <li>{{i.name}}</li>
+            <li>{{i.price}}</li>
+        </ul>
+    </div>
+
+    <div ng-controller="color">
+        <span ng-class="{true:'red',false:'blue'}[isTrue]">RED</span>
+        <span ng-class="{true:'red',false:'blue'}[isFalse]">BLUE</span>
+    </div>
+
+    <div ng-controller="showHide">
+        <span ng-show="isTrue">Show</span>
+        <span ng-show="isFalse">Hide</span>
+        <span ng-hide="isTrue">Show</span>
+        <span ng-hide="isFalse">Hide</span>
+    </div>
+
+    <div ng-controller="ifCtrl">
+        <input type="checkbox" ng-model="display">
+        <span ng-if="display">已勾選你看的到內容</span> {{display}}
+    </div>
+
+    <div ng-controller="eventCtrl">
+
+        數量<input type="text" ng-model="qty" ng-change="subtotal()">
+        <!--ngclick-->
+        <button ng-click="add()">+1</button><button ng-click="minus()">-1</button> 價格
+        <!--ngchange-->
+        <input type="text" ng-model="price" ng-change="subtotal()">
+        <div>加總為<span>{{subtotal()}}</span></div>
+        <!--ngmouseover-->
+        <div class="box" ng-mouseover="mouseover=true" ng-mouseleave="mouseover=false">
+            <span ng-show="mouseover">滑鼠滑至此處才會顯示</span>
+        </div>
+
+        <ul ng-repeat="i in items">
+            <li>{{i.label}} <button ng-click="items.splice($index,1)"> x </button></li>
+        </ul>
+        <pre>{{items | json}}</pre>
+    </div>
+
+
+</body>
+
+</html>

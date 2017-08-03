@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+    <title>Directive</title>
+</head>
+
+
+<body ng-app="myApp">
+
+    <script>
+        /*
+        /*Directive
+        */
+
+        (function () {
+
+            /*
+            * event 事件
+            */
+            var app = angular.module("myApp", []);
+
+            app.controller("eventCtrl", function () {
+                var vm = this;
+                vm.op = ['a', 'b', 'c'];
+                vm.package = [{
+                    type: 'a',
+                    id: 1,
+                    label: '1.aLabel',
+                    price: 20,
+                    subItem: { name: 'aSubItem' }
+                }, {
+                    type: 'b',
+                    id: 5,
+                    label: '5.nty6',
+                    price: 220,
+                    subItem: { name: 'bSubItem' }
+                }, {
+                    type: 'a',
+                    id: 3,
+                    label: '3.nee',
+                    price: 40,
+                    subItem: { name: 'aSubItem' }
+                }, {
+                    type: 'd',
+                    id: 4,
+                    label: '4.bswe',
+                    price: 50,
+                    subItem: { name: 'bSubItem' }
+                }, {
+                    type: 'b',
+                    id: 2,
+                    label: '2.aLabel',
+                    price: 50,
+                    subItem: { name: 'aSubItem' }
+                }, {
+                    type: 'd',
+                    id: 6,
+                    label: '6.wx',
+                    price: 50,
+                    subItem: { name: 'bSubItem' }
+                }];
+                vm.sendInfo = [];
+                vm.qty = 0;
+                vm.price = 0;
+                vm.selected = vm.package[2];//初始預設值
+                vm.selected2 = "";
+                vm.subtotal = function () {
+                    return vm.qty * vm.price;
+                }
+                vm.add = function () {
+                    return vm.qty++;
+                }
+                vm.minus = function () {
+                    return vm.qty--;
+                }
+            });
+
+        })();
+    </script>
+
+    <!--
+     Document:https://docs.angularjs.org/api/ng/directive/ngOptions
+     refenrence:https://ryan10328.blogspot.tw/2016/04/angularjs-directive-day6.html
+    
+    -->
+    <div ng-controller="eventCtrl as self">
+        <form ng-submit="">
+            <!--1.label for value in array-->
+            <select name="" id="" ng-model="self.selected2" ng-options="item for item in self.op"></select>
+            <!--2.select as label for value in array //select 為key取出其值-->
+            <select name="" id="" ng-model="self.selected" ng-options="item.label as item.label for item in self.package"></select>
+            <!--3.自訂selected選項 item.name+'--'+item.price -->
+            <select name="" id="" ng-model="self.selected" ng-options="item.label as item.label+'--'+ item.price for item in self.package"></select>
+            <select name="" id="" ng-model="self.selected" ng-options="item as item.label+'--'+ item.price for item in self.package track by item.id">option</select>
+            <!--4.label group by group for value in array <optgroup>分類群組-->
+            <select name="" id="" ng-model="self.selected" ng-options="item.label group by item.type for item in self.package"></select>            {{self.selected}}
+            <!--5.label disable when disable for value in array-->
+            <select name="" id="" ng-model="self.selected" ng-options="item.label disable when item.type == 'd' for item in self.package"></select>
+
+            <button type="submit">Submit</button>
+
+        </form>
+    </div>
+</body>
+
+</html>

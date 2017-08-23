@@ -38,16 +38,31 @@
             /* ng-app directive initializes an AngularJS application.
             /* ng-init directive initializes application data.
             /* ng-model directive binds the value of HTML controls (input, select, textarea) to application data.
+            /* ng-readonly = "true"
+            /* ng-repeat = "x in obj"
+            /*    $index 取得陣列排序 索引從0
+            /*    $first 迴圈中的第一列
+            /*    $middle 排出第一筆跟最後一筆 取中間
+            /*    $even 陣列偶數
+            /*    $odd  陣列基數
+            /* ng-disabled
+            /* ng-class-odd
+            /* ng-class-even
+            /* ng-show (DOM)
+            /* ng-hide (DOM)
+            /* =======EVENT=======
+            /* ng-changed
+            /* ng-checked
             */
 
             var app = angular.module('myApp', []);
 
             /*
             * create a new directives
-            * not support 1.2
             */
             app.directive("w3TestDirective", function () {
                 return {
+                    restrict: 'E',
                     template: "<h1>Made by a directive!</h1>"
                 };
             });
@@ -115,6 +130,8 @@
                 vm.minus = function () {
                     return vm.qty--;
                 }
+                vm.btnDisable = true;
+                vm.isChecked = false;
 
                 vm.items = [{
                     type: 'a',
@@ -179,10 +196,34 @@
             <span ng-show="mouseover">滑鼠滑至此處才會顯示</span>
         </div>
 
+        <!-- readonly -->
+        <input type="text" value="readonly" ng-readonly="true">
+
+        <!-- btn disabled -->
+        <button ng-disabled="btnDisable">Disabled</button>
+
+        <!-- 刪除項目 -->
         <ul ng-repeat="i in items">
             <li>{{i.label}} <button ng-click="items.splice($index,1)"> x </button></li>
         </ul>
         <pre>{{items | json}}</pre>
+
+        <!--ng show hide if -->
+        <label>
+            <input type="checkbox" ng-model="isChecked">SHOW ITEM BELOW
+            <div ng-show="isChecked">以下下面Checkbox已checked</div>
+            <ul>
+                <li><input type="checkbox" ng-checked="isChecked">1</li>
+                <li><input type="checkbox" ng-checked="isChecked">2</li>
+                <li><input type="checkbox" ng-checked="isChecked">3</li>
+                <li><input type="checkbox" ng-checked="isChecked">4</li>
+                <li><input type="checkbox" ng-checked="isChecked">5</li>
+            </ul>
+        </label>
+        <div ng-show="true">YOU CAN SEE ME!</div>
+        <div ng-hide="true">Hidden!</div>
+        <div ng-if="true">YOU CAN SEE ME!</div>
+        <div ng-if="!true">YOU CAN'T SEE ME!</div>
     </div>
 
 

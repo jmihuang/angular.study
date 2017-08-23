@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+    <title>Directive</title>
+</head>
+
+<style>
+    .red {
+        color: red;
+    }
+
+    .blue {
+        color: blue;
+    }
+
+    .box {
+        width: 600px;
+        height: 300px;
+        border: black 1px solid;
+    }
+</style>
+
+<body ng-app="myApp">
+
+    <script>
+        /*
+        /*Directive
+        */
+
+        (function () {
+
+            var app = angular.module('myApp', []);
+            app.directive("hello", function () {
+                return {
+                    restrict:"E",
+                    compile: function (element,attr){
+                        var type = 'button' || atrr.type;
+                        var value = 'hello';
+                        var show = '<input type='+type+' value='+value+'>'; 
+                        element.replaceWith(show);
+                    },
+                    link:function (scope,element,attr){
+                        alert('submit');
+                    }
+                };
+            });
+
+        })();
+    </script>
+<hello></hello>
+
+</body>
+
+</html>

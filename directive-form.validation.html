@@ -24,7 +24,25 @@
 
     <script>
         /*
-        /*Directive
+        /* Directive
+        /* $pristine | boolean 若該欄位沒輸入值true
+        /* $dirty    | boolean 曾經輸入過值true
+        /* $vaild    | boolean 通過驗證true
+        /* $invalid  | boolean 未通過驗證true
+        /* $submitted | boolean 表單曾經送出 部過有沒有通過驗證都會返回true
+        /* $error | object 沒通過驗證 true
+            email email格式
+            max   限制數字最大值
+            maxlength 限制文字最大字串長度
+            min   限制數字最小值
+            minlength   限制數字最小字串長度
+            number 檢查是不是數字
+            parrten 正規
+            required 必填
+            url  檢查輸入值是否為正確的url格式
+            date 檢查輸入值是否為正確的date格式 (年/月/日)
+            time 檢查輸入值是否為正確的time格式 (年/月/日)
+            week 檢查輸入值是否為正確的week格式 (年/月/日)
         */
 
         (function () {
@@ -67,15 +85,15 @@
             <span>密碼:</span>
             <input type="text" name="password" ng-model="self.passworddb" ng-minlength="3" ng-maxlength="6" required>
             <span>信箱:</span>
-            <input type="text" name="email" ng-model="self.emaildb" required> unt
+            <input type="text" name="email" ng-model="self.emaildb"> unt
             <!--$valid檢視是否錯誤-->
             <p style="color:red" ng-if="form1.account.$invalid">accountd is required minlength 3
                 <p>
                     <p>account:{{form1.account.$invalid}}</p>
                     <p>pwd:{{form1.password.$invalid}}</p>
                     <p>email:{{form1.email.$invalid}}</p>
-                    {{accountdb}}
-                    <button type="submit" ng-disabled="form1.$invalid">Submit</button>
+                    {{accountdb}} {{form1.$invalid}}
+                    <button type="submit" ng-disabled="true">Submit</button>
 
         </form>
     </div>

@@ -66,10 +66,15 @@
         app.directive('checkform', function () {
             return {
                 restrict: 'A',
-                template: '<label>Account:<input type="text" ng-model="account">{{account}}</label>',
+                template: '<label>Account:<input type="text" ng-model="account" ng-keyup="vali()">{{account}}</label>',
                 link: function (scope, element, attrs) {
-                    // var account = (attrs.account === undefined) ? "ABB" : attrs.account;
-                    scope.account = attrs.account || "Pleace keyin!";
+                    scope.account = attrs.account || 'keyin';
+                    scope.vali = function (){
+                        if( scope.account === ''){
+                            element.style.border = "thick solid #0000FF";
+                        }
+                    // element.querySelector('input').style.borderStyle="red";
+                    }
                 }
             }
         });

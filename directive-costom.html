@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 
@@ -142,4 +143,90 @@
 
 </body>
 
+=======
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+    <title>Directive</title>
+</head>
+
+<body ng-app="myApp" ng-controller="list">
+    <people-list> </people-list>
+    <pane>hello,</pane>
+    <div checkform account="Jamie"></div>
+
+    <script>
+        /*template   定義directive輸出內容
+        *template   url 與template引用外部html檔案
+        *priority   directive 優先順序  
+       
+        *link       設定一個function 給directive使用
+        *compile == link
+        *required   用來設定Directive與Directive之間的互動關西
+        *scope      用來設定controller的scope關西
+        *app.directive('自訂名稱',function (){
+            return {
+                ....
+            }
+        *}); 
+        */
+        var app = angular.module("myApp", []);
+        /*restrict   定義directive於html用法
+        * A (Attriute)
+        * E (Element)
+        * C (Class)
+        */
+        var app = angular.module("myApp", []);
+
+        app.directive("peopleList", function () {
+            return {
+                restrict: "E",
+                /*replace    設定diretive tag是否取代*/
+                replace: true,
+                template: "<h1>Name:{{name}},Sex:{{sex}}</h1>"
+            };
+        });
+
+        app.controller('list', function ($scope) {
+            $scope.name = "Herry";
+            $scope.sex = "F"
+        });
+
+        /*transclude 用來將html的內容移至template 裡顯示*/
+
+        app.directive('pane', function () {
+            return {
+                restrict: 'E',
+                transclude: true,
+                template: '<span ng-transclude></span><span>{{name}}</span>'
+            };
+        });
+
+        /*controller 用來宣告controller給directive使用*/
+
+        app.directive('checkform', function () {
+            return {
+                restrict: 'A',
+                template: '<label>Account:<input type="text" ng-model="account" ng-keyup="vali()">{{account}}</label>',
+                link: function (scope, element, attrs) {
+                    scope.account = attrs.account || 'keyin';
+                    scope.vali = function (){
+                        if( scope.account === ''){
+                            element.style.border = "thick solid #0000FF";
+                        }
+                    // element.querySelector('input').style.borderStyle="red";
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+
+>>>>>>> 3e762b1ec8f352e624b3ec5f0a6ed20193499994
 </html>

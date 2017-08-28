@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 
@@ -55,4 +56,63 @@
 
 </body>
 
+=======
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+    <title>Module</title>
+</head>
+
+<body ng-app="myApp">
+    <div ng-controller="thisController as main">
+        <h1>{{main.name}} </h1>
+        <h2>{{main.greeting('Good Moring')}}</h2>
+        <h2>{{main.greeting()}}</h2>
+    </div>
+    <div ng-controller="scopeController">
+        <h1>{{name}} </h1>
+        <h2>{{greeting('早安各位~')}}</h2>
+        <h2>{{greeting()}}</h2>
+    </div>
+
+    <script>
+        /*
+        /* 使用this
+        /* 使用scope
+        /* Controller繼承
+        /* $rootScope
+        */
+
+        (function () {
+            //this
+            var thism = angular.module('thism', []);
+            thism.controller('thisController', function () {
+                this.name = "this Controller";
+                this.greeting = function (str) {
+                    return str || "hello:')"
+                }
+            });
+
+            //scope
+            var scopem = angular.module('scopem', []);
+            scopem.controller('scopeController', ['$scope', function ($scope) {
+                $scope.name = "scope Controller";
+                $scope.greeting = function (str) {
+                    return str || "哈摟~"
+                }
+            }]);
+
+            var app = angular.module('myApp', ['thism', 'scopem']);
+        })();
+    </script>
+
+
+</body>
+
+>>>>>>> 3e762b1ec8f352e624b3ec5f0a6ed20193499994
 </html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+    <title>filter</title>
+</head>
+
+<body ng-app="myApp">
+    <div ng-controller='datecovert'>
+        西元時間:{{nowDate}} 中華民國時間:{{nowDate | dateToROC}}
+    </div>
+    <script>
+        angular.module('myApp', [])
+            .controller('datecovert', ['$scope', function ($scope) {
+                $scope.nowDate = new Date();
+            }])
+            .filter('dateToROC', function () {
+                return function (nowDate) { // data是傳進來的資料
+                    var year = (nowDate.getFullYear() - 1911).toString();
+                    var month = nowDate.getMonth().toString();
+                    var date = nowDate.getDate().toString();
+                    return '民國:' + year + '年' + month + '月' + date + '日';
+                }
+            });
+    </script>
+</body>
+
+</html>

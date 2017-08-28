@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+    <title>Directive</title>
+</head>
+
+<script>
+    var app = angular.module('initExample', []);
+    app.controller('ExampleController', ['$scope', function ($scope) {
+        $scope.list = 'aa';
+    }]);
+
+</script>
+
+<body ng-app="initExample">
+
+
+    <div ng-controller="ExampleController" ng-init="show='qq'">
+        <span ng-show="show=='mm'">mm</span>
+        <span ng-show="show=='qq'">QQ</span>
+
+    </div>
+
+</body>
+
+</html>

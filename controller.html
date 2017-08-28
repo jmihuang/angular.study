@@ -41,12 +41,12 @@
 
             //scope
             var scopem = angular.module('scopem', []);
-            scopem.controller('scopeController', ['$scope', function ($scope) {
+            scopem.controller('scopeController', function ($scope) {
                 $scope.name = "scope Controller";
                 $scope.greeting = function (str) {
                     return str || "哈摟~"
                 }
-            }]);
+            });
 
             var app = angular.module('myApp', ['thism', 'scopem']);
         })();

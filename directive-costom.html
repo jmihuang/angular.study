@@ -12,10 +12,14 @@
 <body ng-app="myApp" ng-controller="list">
     <people-list> </people-list>
     <pane>hello,</pane>
+    <ctrl></ctrl>
     <div checkform account="Jamie"></div>
+    <btn ok="false"></btn>
+    <require-B></require-B>
 
     <script>
-        /*template   定義directive輸出內容
+        /*
+        *template   定義directive輸出內容
         *template   url 與template引用外部html檔案
         *priority   directive 優先順序  
        
@@ -30,6 +34,7 @@
         *}); 
         */
         var app = angular.module("myApp", []);
+
         /*restrict   定義directive於html用法
         * A (Attriute)
         * E (Element)
@@ -52,7 +57,6 @@
         });
 
         /*transclude 用來將html的內容移至template 裡顯示*/
-
         app.directive('pane', function () {
             return {
                 restrict: 'E',
@@ -61,15 +65,76 @@
             };
         });
 
-        /*controller 用來宣告controller給directive使用*/
+        /*除了外層的controller 也可以自訂controller給directive使用*/
+        app.directive('ctrl', function () {
+            return {
+                restrict: 'E',
+                template: '<div>{{hi}}</div>',
+                priority: 1,
+                controller: function ($scope) {
+                    $scope.hi = 'hello world'
+                }
+            }
+        });
 
+        /*link 提供function給directive執行 主要負責資料的binding與初始化 不可與compile同用
+        * 參數列表
+        * scope 作用區
+        * element Dom元素
+        * attrs Dom屬性
+        * controller 指定的controller共享
+        */
         app.directive('checkform', function () {
             return {
                 restrict: 'A',
-                template: '<label>Account:<input type="text" ng-model="account">{{account}}</label>',
+                template: '<input type="text" name="user" ng-model="user"><div>Hello,{{user}}<span style="color:red">{{notice}}</span></div>',
                 link: function (scope, element, attrs) {
-                    // var account = (attrs.account === undefined) ? "ABB" : attrs.account;
-                    scope.account = attrs.account || "Pleace keyin!";
+                    scope.user = attrs.user || 'Pleace keyin!';
+                    var valeng = function () {
+                        if (scope.user.length > 5) {
+                            return 'min 5 charaters';
+                        }
+                    }
+                    scope.notice = valeng();
+                }
+            }
+        });
+
+        /*compile 提供function給directive執行 主要負責資料的binding與初始化 不可與compile同用
+        * 參數列表
+        * element Dom元素
+        * attrs Dom屬性
+        */
+
+        app.directive('btn', function () {
+            return {
+                restrict: 'E',
+                compile: function (element, attrs) {
+                    var status = attrs.ok === "true" ? '<button type="submit">SUBMIT</button>' : '<button type="submit" disabled>SUBMIT</button>';
+                    var hello = 'hello';
+                    element.replaceWith(status);
+                }
+            }
+        });
+
+        /* require 是用來設定Directive之間的互動 (無法正常使用)*/
+        app.directive('requirea', function () {
+            return {
+                restrict: 'E',
+                template: '<Requirea></Requirea>',
+                controller: function () {
+                    this.value = 0;
+                }
+            }
+        });
+
+        app.directive('requireB', function () {
+            return {
+                require: '^requirea',
+                restrict: 'E',
+                template: '<h1>{{value}}</h1>',
+                link: function (scope, element, attrs, rr) {
+                    scope.value = rr.value;
                 }
             }
         });

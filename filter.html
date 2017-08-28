@@ -46,6 +46,17 @@
             <li><span>{{i.name}}</span>{{i.phone}}</li>
         </ul>
 
+        <!-- search -->
+        <input type="text" ng-model="search">
+        <ul ng-repeat="i in main.goods | filter:search">
+            <li><span>{{i.name}}</span>{{i.phone}}</li>
+        </ul>
+        搜尋名子<input type="text" ng-model="searchdeep.name"> 搜尋電話
+        <input type="text" ng-model="searchdeep.phone">
+        <ul ng-repeat="i in main.goods | filter:searchdeep">
+            <li>{{$index+1}}.<span>{{i.name}}</span>{{i.phone}}</li>
+        </ul>
+
     </div>
     <script>
         (function () {

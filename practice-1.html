@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+    <title>Directive</title>
+</head>
+
+<body ng-app="myApp">
+    <div ng-controller="bctrl">
+        {{name}}
+    </div>
+    <div ng-controller="pctrl">
+        {{name}}
+        <input type="text" ng-model="qty"> 購買數量:{{qty}}
+    </div>
+
+
+    <input type="search" name="" id="input${1/(\w+)/\u\1/g}" class="form-control" value="" required="required" title="">
+
+
+    <script>
+        angular.module('myApp', ['book', 'pen']);
+        var bookCtrl = angular.module('book', [])
+            .controller('bctrl', function ($scope) {
+                $scope.name = 'Secret';
+            });
+        var penCtrl = angular.module('pen', [])
+            .controller('pctrl', function ($scope) {
+                $scope.name = 'Zebra';
+            });
+    </script>
+</body>
+
+</html>

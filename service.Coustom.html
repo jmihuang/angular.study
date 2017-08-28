@@ -11,43 +11,70 @@
 
 <body>
 
-    <script>
-        /*
-        /* 共用功能抽離做成Service,再輸入使用時注入使用，也可以將注入功能抽換
-        */
-
-        (function () {
-            //To create your own service, connect your service to the module
-            var app = angular.module('myApp', []);
-            app.service("$toFix", function () {
-                this.toFn = function (x) {
-                    return x.toFixed(0);
-                }
-            });
-            // You can use the filter when displaying values from an object, or an array
-            app.filter("fixTo", ['$toFix', function ($toFix) {
-                return function (x) {
-                    return $toFix.toFn(x);
-                }
-            }]);
-            app.controller('toCtrl', function ($scope, $toFix) {
-                $scope.num = 1.562;
-                $scope.count = [2.5668, 3.525, 41.36];
-                $scope.toNum = $toFix.toFn($scope.num);
-            });
-
-        })();
-
-    </script>
-
     <div ng-app="myApp" ng-controller="toCtrl">
         <span>{{toNum}}</span>
         <ul ng-repeat="i in count">
             {{i|fixTo}}
         </ul>
+
+        <div ng-controller="inservice">
+            {{name}} {{say}} {{discount}}
+        </div>
+
     </div>
 
 
+    <script>
+        /*
+            /* 共用功能抽離做成Service,再輸入使用時注入使用，也可以將注入功能抽換
+            */
+        //To create your own service, connect your service to the module
+        var app = angular.module('myApp', []);
+        app.service("$toFix", function () {
+            this.toFn = function (x) {
+                return x.toFixed(0);
+            }
+        });
+        // You can use the filter when displaying values from an object, or an array
+        app.filter("fixTo", ['$toFix', function ($toFix) {
+            return function (x) {
+                return $toFix.toFn(x);
+            }
+        }]);
+        app.controller('toCtrl', function ($scope, $toFix) {
+            $scope.num = 1.562;
+            $scope.count = [2.5668, 3.525, 41.36];
+            $scope.toNum = $toFix.toFn($scope.num);
+        });
+
+        /* 自訂service與Factory並注入至controller
+        * 自訂service是透過$provide當中提供
+        *provider(name,provider);
+        *factory(name,$getFn)
+        *service(name,constructor)
+        *3種方法
+        */
+        app.service('myservice', function () {
+            this.name = 'service';
+            this.say = this.name + "said:hello";
+        });
+
+        app.factory("myfactory", function () {
+            var value = Math.random();
+            return {
+                name: 'factory',
+                discount: function () {
+                    return value;
+                }
+            }
+        });
+
+        app.controller('inservice', function ($scope, myservice, myfactory) {
+            $scope.name = myservice.name;
+            $scope.say = myservice.say;
+            $scope.discount = myfactory.discount();
+        });
+    </script>
 
 </body>
 

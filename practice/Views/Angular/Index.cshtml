@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "Angular練習";
+}
+<div ng-app="myApp" ng-init="title='Angular練習'" ng-controller="lobbylist">
+    <section cycle
+             imgurls='https://unsplash.it/g/1140/300,https://unsplash.it/1140/300'
+             alts='pic1,pic2'
+             time='1000'></section>
+    <section>
+        <label>
+            <input type="search" class="form-control" value="" placeholdr="請輸入娛樂城" ng-model="searchkey.lobby">
+        </label>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>娛樂城</th>
+                    <th>連結</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="i in lobbies | filter:searchkey">
+                    <td>{{i.lobby}}</td>
+                    <td><a ng-href="{{i.url}}" target="_blank">{{i.url}}</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    <section>
+        進站入數:{{counter|numberpoints}}
+    </section>
+</div>

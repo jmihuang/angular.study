@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+    <title>Service</title>
+</head>
+
+<body>
+
+    <script>
+        /*
+        /* 共用功能抽離做成Service,再輸入使用時注入使用，也可以將注入功能抽換
+        /* $watch和ng-change是在改變內容值的時候，觸發事件，ng-click則只會在點擊輸入框時被執行
+        */
+
+        (function () {
+            var app = angular.module('myApp', []);
+            app.controller('ctrl', ['$scope', '$watch', function ($scope, $watch) {
+                $scope.$watch('test1', function (newValue, oldValue) {
+                    //這裡輸入觸發$watch之後，欲觸發的行為
+                    console.log(newValue, oldValue);
+                }, true);
+            }]);
+        })();
+    </script>
+    <div ng-app="myApp" ng-controller="ctrl">
+        <input type="text" ng-model="test1">
+
+    </div>
+
+</body>
+
+</html>
